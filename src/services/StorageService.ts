@@ -8,4 +8,8 @@ export class StorageService {
         return localStorage.getItem(key);
     }
 
+    static async removeItem(key: string) {
+        localStorage.removeItem(key);
+    }
+
 }

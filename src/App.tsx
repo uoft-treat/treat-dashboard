@@ -25,7 +25,7 @@ class App extends Component {
                 <Router history={history}>
                     <Switch>
                         <Route exact path="/login" component={LoginPage}/>
-                        <Route exact path="/dashboard" component={DashboardPage}/>
+                        <Route path="/dashboard" component={DashboardPage}/>
                     </Switch>
                 </Router>
             </div>

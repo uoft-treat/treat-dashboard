@@ -1,4 +1,4 @@
-import React                 from 'react';
+import React                                            from 'react';
 import {
     Drawer,
     List,
@@ -12,9 +12,12 @@ import {
     createStyles,
     Theme,
     Button,
-}                            from '@material-ui/core';
-import Icon                  from '@material-ui/core/Icon';
-import {authenticationStore} from "../../stores/AuthenticationStore";
+}                                                       from '@material-ui/core';
+import Icon                                             from '@material-ui/core/Icon';
+import {authenticationStore}                            from "../../stores/AuthenticationStore";
+import {Route, RouteComponentProps, Switch, withRouter} from "react-router";
+import LoginPage                                        from "../login/LoginPage";
+import pathMatches                                      from "../../utilities/pathMatches";
 
 const drawerWidth = 240;
 
@@ -44,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const DashboardPage = () => {
+const DashboardPage = ({history, location}: RouteComponentProps) => {
 
     const classes = useStyles();
 
@@ -68,13 +71,23 @@ const DashboardPage = () => {
             >
                 <div className={classes.toolbar}/>
                 <List>
-                    <ListItem button key={"widgets"}>
+                    <ListItem
+                        button
+                        key={"widgets"}
+                        onClick={() => history.push("/dashboard/widgets")}
+                        selected={pathMatches(location.pathname, "/dashboard/widgets")}
+                    >
                         <ListItemIcon>
                             <Icon>widgets</Icon>
                         </ListItemIcon>
                         <ListItemText primary={"Widgets"}/>
                     </ListItem>
-                    <ListItem button key={"experiments"}>
+                    <ListItem
+                        button
+                        key={"experiments"}
+                        onClick={() => history.push("/dashboard/experiments")}
+                        selected={pathMatches(location.pathname, "/dashboard/experiments")}
+                    >
                         <ListItemIcon>
                             <Icon>web</Icon>
                         </ListItemIcon>
@@ -85,18 +98,10 @@ const DashboardPage = () => {
 
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                </Typography>
+                <Switch>
+                    <Route path="/dashboard/widgets" component={LoginPage}/>
+                    <Route path="/dashboard/experiments" component={LoginPage}/>
+                </Switch>
             </main>
 
         </div>
@@ -104,4 +109,4 @@ const DashboardPage = () => {
 
 }
 
-export default DashboardPage;
+export default withRouter(DashboardPage);

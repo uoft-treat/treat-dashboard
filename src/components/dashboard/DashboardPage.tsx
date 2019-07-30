@@ -18,6 +18,7 @@ import {authenticationStore}                            from "../../stores/Authe
 import {Route, RouteComponentProps, Switch, withRouter} from "react-router";
 import LoginPage                                        from "../login/LoginPage";
 import pathMatches                                      from "../../utilities/pathMatches";
+import WidgetsPage                                      from "./widgets/WidgetsPage";
 
 const drawerWidth = 240;
 
@@ -99,7 +100,7 @@ const DashboardPage = ({history, location}: RouteComponentProps) => {
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Switch>
-                    <Route path="/dashboard/widgets" component={LoginPage}/>
+                    <Route path="/dashboard/widgets" component={WidgetsPage}/>
                     <Route path="/dashboard/experiments" component={LoginPage}/>
                 </Switch>
             </main>

@@ -1,16 +1,21 @@
-import React, {Component}  from "react";
-import {loginStore}        from "./LoginStore";
-import {observer}          from "mobx-react";
-import styled              from 'styled-components';
-import {TextField, Button} from "@material-ui/core";
+import React, {Component}                from "react";
+import {loginStore}                      from "./LoginStore";
+import {observer}                        from "mobx-react";
+import styled                            from 'styled-components';
+import {TextField, Button}               from "@material-ui/core";
+import ErrorBadge                        from "../common/ErrorBadge";
+import {RouteComponentProps, withRouter} from "react-router";
 
 @observer
-class LoginPage extends Component {
+class LoginPage extends Component<RouteComponentProps> {
 
     render() {
         return (
             <FormContainer>
                 <h1>TREAT</h1>
+                {loginStore.lastError && (
+                    <ErrorBadge error={loginStore.lastError}/>
+                )}
                 <DefaultTextInput
                     label="Username"
                     name="username"
@@ -28,7 +33,7 @@ class LoginPage extends Component {
                     value={loginStore.formValue.password}
                     onChange={this.onFormUpdate}
                 />
-                <Button href="#">
+                <Button href="#" onClick={loginStore.attemptLogin}>
                     Login
                 </Button>
             </FormContainer>
@@ -42,8 +47,10 @@ class LoginPage extends Component {
 }
 
 const FormContainer = styled.div`
-    background-color: azure;
-    margin-top: 30px;
+    background-color: white;
+    box-shadow: rgba(0,0,0,0.1) 7px 7px 20px;
+    border-radius: 10px;
+    margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -55,4 +62,4 @@ const DefaultTextInput = styled(TextField)`
   width: 100%;
 `;
 
-export default LoginPage;
+export default withRouter(LoginPage);

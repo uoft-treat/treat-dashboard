@@ -1,4 +1,4 @@
-import React                                            from 'react';
+import React                                                      from 'react';
 import {
     Drawer,
     List,
@@ -12,15 +12,16 @@ import {
     createStyles,
     Theme,
     Button,
-}                                                       from '@material-ui/core';
-import Icon                                             from '@material-ui/core/Icon';
-import {authenticationStore}                            from "../../stores/AuthenticationStore";
-import {Route, RouteComponentProps, Switch, withRouter} from "react-router";
-import LoginPage                                        from "../login/LoginPage";
-import pathMatches                                      from "../../utilities/pathMatches";
-import WidgetsPage                                      from "./widgets/WidgetsPage";
+}                                                                 from '@material-ui/core';
+import Icon                                                       from '@material-ui/core/Icon';
+import {authenticationStore}                                      from "../../stores/AuthenticationStore";
+import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
+import LoginPage                                                  from "../login/LoginPage";
+import pathMatches                                                from "../../utilities/pathMatches";
+import WidgetsPage                                                from "./widgets/WidgetsPage";
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 240;
+const BASE_ROUTE = "/dashboard";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,11 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: theme.zIndex.drawer + 1,
         },
         drawer: {
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
             flexShrink: 0,
         },
         drawerPaper: {
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
         },
         content: {
             flexGrow: 1,
@@ -75,8 +76,8 @@ const DashboardPage = ({history, location}: RouteComponentProps) => {
                     <ListItem
                         button
                         key={"widgets"}
-                        onClick={() => history.push("/dashboard/widgets")}
-                        selected={pathMatches(location.pathname, "/dashboard/widgets")}
+                        onClick={() => history.push(`${BASE_ROUTE}/widgets`)}
+                        selected={pathMatches(location.pathname, `${BASE_ROUTE}/widgets`)}
                     >
                         <ListItemIcon>
                             <Icon>widgets</Icon>
@@ -86,8 +87,8 @@ const DashboardPage = ({history, location}: RouteComponentProps) => {
                     <ListItem
                         button
                         key={"experiments"}
-                        onClick={() => history.push("/dashboard/experiments")}
-                        selected={pathMatches(location.pathname, "/dashboard/experiments")}
+                        onClick={() => history.push(`${BASE_ROUTE}/experiments`)}
+                        selected={pathMatches(location.pathname, `${BASE_ROUTE}/experiments`)}
                     >
                         <ListItemIcon>
                             <Icon>web</Icon>
@@ -100,14 +101,14 @@ const DashboardPage = ({history, location}: RouteComponentProps) => {
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Switch>
-                    <Route path="/dashboard/widgets" component={WidgetsPage}/>
-                    <Route path="/dashboard/experiments" component={LoginPage}/>
+                    <Route exact path={`${BASE_ROUTE}`} render={() => <Redirect to={`${BASE_ROUTE}/widgets`} />}/>
+                    <Route path={`${BASE_ROUTE}/widgets`} component={WidgetsPage}/>
+                    <Route path={`${BASE_ROUTE}/experiments`} component={LoginPage}/>
                 </Switch>
             </main>
 
         </div>
     )
-
-}
+};
 
 export default withRouter(DashboardPage);

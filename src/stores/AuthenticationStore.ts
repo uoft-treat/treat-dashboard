@@ -1,6 +1,7 @@
 import {action, observable, reaction} from "mobx";
-import {StorageService}                     from "../services/StorageService";
-import {routerStore}                        from "./RouterStore";
+import {StorageService}               from "../services/StorageService";
+import {routerStore}                  from "./RouterStore";
+import pathMatches                    from "../utilities/pathMatches";
 
 
 class AuthenticationStore {
@@ -10,7 +11,9 @@ class AuthenticationStore {
             () => this.token,
             () => {
                 if(this.token) {
-                    routerStore.history && routerStore.history.push("/dashboard")
+                    if(!pathMatches(routerStore.location.pathname, '/dashboard')) {
+                        routerStore.history && routerStore.history.push("/dashboard");
+                    }
                 } else {
                     routerStore.history && routerStore.history.push("/login")
                 }

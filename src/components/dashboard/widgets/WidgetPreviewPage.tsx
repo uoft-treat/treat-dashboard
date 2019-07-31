@@ -12,6 +12,32 @@ const WidgetPreviewPage = observer(({match}) => {
         async function init() {
             const widgetResponse = await widgetsStore.getWidgetByUuid(match.params.widgetId);
             setWidget(widgetResponse);
+            const experiment = window.Carbon.createExperiment();
+            experiment.definition = await window.Carbon.experimentService.getExperimentDefinitionFromXml(
+                `
+                export default {
+                  onMount: function () {},
+                  onWidgetStateChange: function () {}
+                }
+                `,
+                `
+                <?xml version="1.0"?>
+                <Experiment
+                        name="My Cool Experiment"
+                        uuid="11d55937-d06f-4dd8-96d1-49d0dd9126cf"
+                >
+                    <Canvas>
+                        <Section>
+                            <Widget
+                                uuid="${widgetResponse.uuid}"
+                                id="my-widget"
+                            />
+                        </Section>
+                    </Canvas>
+                </Experiment>
+                `
+            );
+            experiment.mount("widget-mounting-point");
         }
         init();
     }, [match.params.widgetId]);
@@ -21,7 +47,7 @@ const WidgetPreviewPage = observer(({match}) => {
             <Link to={"/dashboard/widgets"}>Back</Link>
             <br/>
             Widget Preview {match.params.widgetId}
-            {JSON.stringify(widget)}
+            <div id={"widget-mounting-point"}></div>
         </div>
     )
 

@@ -7,7 +7,7 @@ import {widgetsStore}      from "../../../stores/WidgetStore";
 import errorToMessage      from "../../../utilities/errorToMessage";
 import {routerStore}       from "../../../stores/RouterStore";
 
-const WidgetsRegisterPage = observer(() => {
+const WidgetRegisterPage = observer(() => {
 
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
@@ -99,4 +99,4 @@ const DefaultTextField = styled(TextField)`
   width: 100%;
 `;
 
-export default WidgetsRegisterPage;
+export default WidgetRegisterPage;

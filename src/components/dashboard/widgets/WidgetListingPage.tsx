@@ -6,7 +6,7 @@ import {withRouter}                                                      from "r
 
 const BASE_ROUTE = "/dashboard/widgets";
 
-const WidgetsListingPage = observer(({history}) => {
+const WidgetListingPage = observer(({history}) => {
 
     useEffect(() => {
         async function init() {
@@ -63,4 +63,4 @@ const WidgetsListingPage = observer(({history}) => {
 
 });
 
-export default withRouter(WidgetsListingPage);
+export default withRouter(WidgetListingPage);

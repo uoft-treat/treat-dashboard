@@ -16,9 +16,9 @@ import {
 import Icon                                                       from '@material-ui/core/Icon';
 import {authenticationStore}                                      from "../../stores/AuthenticationStore";
 import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
-import LoginPage                                                  from "../login/LoginPage";
 import pathMatches                                                from "../../utilities/pathMatches";
 import WidgetsPage                                                from "./widgets/WidgetsPage";
+import ExperimentsPage                                            from "./experiments/ExperimentsPage";
 
 const DRAWER_WIDTH = 240;
 const BASE_ROUTE = "/dashboard";
@@ -101,9 +101,9 @@ const DashboardPage = ({history, location}: RouteComponentProps) => {
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Switch>
-                    <Route exact path={`${BASE_ROUTE}`} render={() => <Redirect to={`${BASE_ROUTE}/widgets`} />}/>
+                    <Route exact path={`${BASE_ROUTE}`} render={() => <Redirect to={`${BASE_ROUTE}/widgets`}/>}/>
                     <Route path={`${BASE_ROUTE}/widgets`} component={WidgetsPage}/>
-                    <Route path={`${BASE_ROUTE}/experiments`} component={LoginPage}/>
+                    <Route path={`${BASE_ROUTE}/experiments`} component={ExperimentsPage}/>
                 </Switch>
             </main>
 

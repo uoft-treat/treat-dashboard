@@ -20,7 +20,7 @@ const ExperimentListingPage = observer(() => {
                     return (
                         <li>
                             {experiment.name} by {experiment.author}&nbsp;
-                            [ <Link to={"/"}>Edit</Link> ]
+                            [ <Link to={`/editor/${experiment.uuid}`}>Edit</Link> ]
                         </li>
                     )
                 })}

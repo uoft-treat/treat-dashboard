@@ -11,7 +11,7 @@ class AuthenticationStore {
             () => this.token,
             () => {
                 if(this.token) {
-                    if(!pathMatches(routerStore.location.pathname, '/dashboard')) {
+                    if(pathMatches(routerStore.location.pathname, '/login')) {
                         routerStore.history && routerStore.history.push("/dashboard");
                     }
                 } else {

@@ -8,6 +8,7 @@ import DashboardPage           from "./components/dashboard/DashboardPage";
 import {createBrowserHistory}  from "history";
 import {syncHistoryWithStore}  from 'mobx-react-router';
 import {routerStore}           from "./stores/RouterStore";
+import ExperimentEditor        from "./components/editor/ExperimentEditor";
 
 const browserHistory = createBrowserHistory();
 const history = syncHistoryWithStore(browserHistory, routerStore);
@@ -26,6 +27,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/login" component={LoginPage}/>
                         <Route path="/dashboard" component={DashboardPage}/>
+                        <Route path="/editor/:uuid" component={ExperimentEditor}/>
                     </Switch>
                 </Router>
             </div>
